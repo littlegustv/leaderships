@@ -1,0 +1,543 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"switch",
+				"switch__png\tString"
+			],
+			[
+				"keys",
+				"keys_collected"
+			],
+			[
+				"t",
+				"type"
+			],
+			[
+				"prop",
+				"properties\tflixel.addons.editors.tiled.TiledPropertySet"
+			],
+			[
+				"el",
+				"elapsed"
+			],
+			[
+				"exit",
+				"exit_fail__wav\tString"
+			],
+			[
+				"ju",
+				"jump__wav\tString"
+			],
+			[
+				"key",
+				"keys_icon"
+			],
+			[
+				"k",
+				"key__png\tString"
+			],
+			[
+				"TO",
+				"TO_RAD\tFloat"
+			],
+			[
+				"Ra",
+				"RatioScaleMode\tclass"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "source/Main.hx",
+			"settings":
+			{
+				"buffer_size": 176,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "source/PlayState.hx",
+			"settings":
+			{
+				"buffer_size": 221,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"previe",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"synta hax",
+				"Set Syntax: Haxe"
+			],
+			[
+				"pack insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pACK",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/e1sif/Haxe/Leaderships",
+		"/home/e1sif/Haxe/Leaderships/source"
+	],
+	"file_history":
+	[
+		"/tmp/mozilla_e1sif0/deploy.md",
+		"/home/e1sif/sdbmss/app/models/source.rb",
+		"/home/e1sif/sdbmss/app/models/source_type.rb",
+		"/home/e1sif/sdbmss/app/models/source_agent.rb",
+		"/home/e1sif/sdbmss/app/models/sale.rb",
+		"/home/e1sif/sdbmss/app/models/sale_agent.rb",
+		"/home/e1sif/sdbmss/app/models/provenance.rb",
+		"/home/e1sif/sdbmss/app/models/place.rb",
+		"/home/e1sif/sdbmss/app/models/name.rb",
+		"/home/e1sif/sdbmss/app/models/manuscript.rb",
+		"/home/e1sif/sdbmss/app/models/language.rb",
+		"/home/e1sif/sdbmss/app/models/entry_use.rb",
+		"/home/e1sif/sdbmss/app/models/entry_title.rb",
+		"/home/e1sif/sdbmss/app/models/entry_scribe.rb",
+		"/home/e1sif/sdbmss/app/models/entry_place.rb",
+		"/home/e1sif/sdbmss/app/models/entry_material.rb",
+		"/home/e1sif/sdbmss/app/models/entry_manuscript.rb",
+		"/home/e1sif/sdbmss/app/models/entry_language.rb",
+		"/home/e1sif/sdbmss/app/models/entry_date.rb",
+		"/home/e1sif/sdbmss/app/models/entry_author.rb",
+		"/home/e1sif/sdbmss/app/models/entry_artist.rb",
+		"/home/e1sif/sdbmss/app/models/entry.rb",
+		"/home/e1sif/sdbmss/app/models/dericci_record.rb",
+		"/home/e1sif/sdbmss/app/models/dericci_link.rb",
+		"/tmp/fz3temp-2/style-mobile.css",
+		"/tmp/fz3temp-2/footer.php",
+		"/tmp/fz3temp-2/template-full-screen.php",
+		"/tmp/fz3temp-2/header.php",
+		"/tmp/fz3temp-2/style.css",
+		"/home/e1sif/sdbmss/docker-compose.yml",
+		"/tmp/fz3temp-2/content-page.php",
+		"/tmp/fz3temp-2/page.php",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/Project.xml",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/source/MenuState.hx",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/assets/xml/menustate.xml",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/assets/xml/playstate.xml",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/assets/data/world.tmx",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/source/Main.hx",
+		"/home/e1sif/Downloads/deploy.md",
+		"/home/e1sif/Downloads/remote2018.todo",
+		"/home/e1sif/Haxe/Docs/documentation/02_handbook/06-flxsave.html.md",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/assets/data/level0.tmx",
+		"/home/e1sif/Haxe/Docs/documentation/01_tutorial/09-8-pickups.html.md",
+		"/home/e1sif/Haxe/Docs/documentation/01_tutorial/15-14-polish.html.md",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/source/PlayState.hx",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/todo.todo",
+		"/home/e1sif/.bashrc",
+		"/home/e1sif/Documents/aftermove.todo",
+		"/home/e1sif/sdbmss/VERSION",
+		"/home/e1sif/sdbmss/db/migrate/20180613140425_create_name_places.rb",
+		"/home/e1sif/sdbmss/.docker-environment",
+		"/home/e1sif/Documents/10fdesign.accounting",
+		"/home/e1sif/Documents/move.todo",
+		"/home/e1sif/Haxe/SpidersSpidersSpiders/spiderspiderspider.sublime-project",
+		"/home/e1sif/Documents/sublime license"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "source/Main.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 176,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "source/PlayState.hx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"haxe-build-id": 0,
+							"syntax": "Packages/Haxe/Haxe.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Leaderships.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"deric record show",
+				"app/views/dericci_records/show.html.erb"
+			],
+			[
+				"name",
+				"app/models/name.rb"
+			],
+			[
+				"name name html",
+				"app/views/names/_name.html.erb"
+			],
+			[
+				"name place",
+				"app/models/name_place.rb"
+			],
+			[
+				"source",
+				"app/models/source.rb"
+			],
+			[
+				"source typ",
+				"app/models/source_type.rb"
+			],
+			[
+				"source age",
+				"app/models/source_agent.rb"
+			],
+			[
+				"sale",
+				"app/models/sale.rb"
+			],
+			[
+				"sale age",
+				"app/models/sale_agent.rb"
+			],
+			[
+				"prove",
+				"app/models/provenance.rb"
+			],
+			[
+				"place",
+				"app/models/place.rb"
+			],
+			[
+				"manu",
+				"app/models/manuscript.rb"
+			],
+			[
+				"langu",
+				"app/models/language.rb"
+			],
+			[
+				"entr us",
+				"app/models/entry_use.rb"
+			],
+			[
+				"entry tit",
+				"app/models/entry_title.rb"
+			],
+			[
+				"entry scrib",
+				"app/models/entry_scribe.rb"
+			],
+			[
+				"entry place",
+				"app/models/entry_place.rb"
+			],
+			[
+				"entry mat",
+				"app/models/entry_material.rb"
+			],
+			[
+				"entry manu",
+				"app/models/entry_manuscript.rb"
+			],
+			[
+				"entry lang",
+				"app/models/entry_language.rb"
+			],
+			[
+				"entry date",
+				"app/models/entry_date.rb"
+			],
+			[
+				"entry auth",
+				"app/models/entry_author.rb"
+			],
+			[
+				"entry art",
+				"app/models/entry_artist.rb"
+			],
+			[
+				"entry",
+				"app/models/entry.rb"
+			],
+			[
+				"dericci link",
+				"app/models/dericci_link.rb"
+			],
+			[
+				"dericc rec",
+				"app/models/dericci_record.rb"
+			],
+			[
+				"mapp",
+				"mapping.ttl"
+			],
+			[
+				"tell",
+				"app/models/concerns/tell_bunny.rb"
+			],
+			[
+				"tell b",
+				"app/models/concerns/tell_bunny.rb"
+			],
+			[
+				"interf",
+				"interface/interface.rb"
+			],
+			[
+				"sourc",
+				"app/models/source.rb"
+			],
+			[
+				"docker com",
+				"docker-compose.yml"
+			],
+			[
+				"appli",
+				"config/application.rb"
+			],
+			[
+				"tell bunn",
+				"app/models/concerns/tell_bunny.rb"
+			],
+			[
+				"world",
+				"assets/data/world.tmx"
+			],
+			[
+				"PROJ",
+				"Project.xml"
+			],
+			[
+				"main",
+				"source/Main.hx"
+			],
+			[
+				"pro",
+				"Project.xml"
+			],
+			[
+				"level",
+				"assets/data/level0.tmx"
+			],
+			[
+				"playst",
+				"source/PlayState.hx"
+			],
+			[
+				"projec",
+				"Project.xml"
+			],
+			[
+				"menu",
+				"source/MenuState.hx"
+			],
+			[
+				"mai",
+				"source/Main.hx"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 251.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
