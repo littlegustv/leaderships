@@ -36,8 +36,11 @@ class PlayState extends FlxState
   var stations:FlxTypedGroup<Station>;
 
   var crew:FlxTypedGroup<Crew>;//FlxSprite>;
+  var crewmap:Map<String, Crew>;
   var crewmember:Crew;
   var walls:FlxTilemap;
+
+  var client:mphx.client.Client;
 
   var PLAYERSPEED = 100;
 
@@ -121,22 +124,51 @@ class PlayState extends FlxState
     }
 
     crew = new FlxTypedGroup<Crew>();
-    for (i in 0...3) {    
-      var c = new Crew(FlxG.random.int(10, 20) * 16, 7 * 16);
-      c.loadGraphic(AssetPaths.cosmonaut__png, true, 16, 16);
-      c.animation.add("red", [0, 1], 4, true);
-      c.animation.add("green", [2, 3], 4, true);
-      c.animation.play(FlxG.random.getObject(["red", "green"]));
-      //c.acceleration.y = GRAVITY;
-      //crew.maxVelocity.y = 100;
-      if (i == 0) {
-        crewmember = c;
-        trace('here', crewmember);
-      }
-      crew.add(c);
-    }
+    crewmap = new Map<String, Crew>();
     interior.add(crew);
 
+    crewmember = new Crew({x: FlxG.random.int(10, 20) * 16, y: 7 * 16, id:"P"+Math.floor(Math.random()*9999), velocity: {x: 0, y: 0}});
+    crewmember.loadGraphic(AssetPaths.cosmonaut__png, true, 16, 16);
+    crewmember.animation.add("red", [0, 1], 4, true);
+    crewmember.animation.add("green", [2, 3], 4, true);
+    crewmember.animation.play(FlxG.random.getObject(["red", "green"]));
+    crewmap.set(crewmember.data.id, crewmember);
+    crew.add(crewmember);
+
+    client = new mphx.client.Client("127.0.0.1", 8000);
+    client.connect();
+
+    client.send("Join", crewmember.data);
+
+    client.events.on("Join", function (data) {
+      if (crewmap.exists(data.id) == false) {
+        var c = new Crew(data);
+        c.loadGraphic(AssetPaths.cosmonaut__png, true, 16, 16);
+        c.animation.add("red", [0, 1], 4, true);
+        c.animation.add("green", [2, 3], 4, true);
+        c.animation.play(FlxG.random.getObject(["red", "green"]));
+        crewmap.set(data.id, c);
+        crew.add(c);
+      }
+    });
+
+    client.events.on("Update", function (data) {
+      if (data.id != crewmember.data.id) {
+        if (crewmap.exists(data.id) != false) {
+          crewmap.get(data.id).receiveUpdate(data);
+        } else {
+          var c = new Crew(data);
+          c.loadGraphic(AssetPaths.cosmonaut__png, true, 16, 16);
+          c.animation.add("red", [0, 1], 4, true);
+          c.animation.add("green", [2, 3], 4, true);
+          c.animation.play(FlxG.random.getObject(["red", "green"]));
+          crewmap.set(data.id, c);
+          crew.add(c);
+        }
+      }
+    });
+
+    // this is actually the ship, ignore for now...
     player = new FlxSprite(100, 100);
     player.loadGraphic(AssetPaths.saucer__png, true, 18, 16);
     player.animation.add("main", [0], 1, true);
@@ -211,7 +243,7 @@ class PlayState extends FlxState
       FlxG.camera.shake(0.025);
       health -= 1;
       if (health <= 0) {
-        FlxG.switchState(new PlayState());
+        FlxG.switchState(new MenuState());
       }
     });
 
@@ -272,6 +304,7 @@ class PlayState extends FlxState
       //crew.velocity.y = 0;
       if (FlxG.keys.pressed.UP && crewmember.isTouching(FlxObject.DOWN)) {          
         crewmember.velocity.y = -JUMPSPEED;
+    //    client.send("Update",crewmember.data);
       }
       if (FlxG.keys.pressed.RIGHT) {
         crewmember.velocity.x = MOVESPEED;
@@ -279,7 +312,8 @@ class PlayState extends FlxState
         crewmember.velocity.x = -MOVESPEED;
       }
     }
-
-		super.update(elapsed);
+    client.send("Update",crewmember.data);
+    super.update(elapsed);
+    client.update();
 	}
 }

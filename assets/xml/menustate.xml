@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <definition name="sans10" size="48" style="bold" color="0xffffff" outline="0x000000" align="left"/>
+
+  <button use_def="button_simple" x="10" y="116" size="16" group="top" label="Join">
+    <param type="string" value="join"/>
+  </button>
+
+  <text name="text1" use_def="sans10" x="10" y="48" text="Leader Ships"/>
+</data>
