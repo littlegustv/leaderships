@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-  <definition name="sans10" size="48" style="bold" color="0xffffff" outline="0x000000" align="left"/>
+  <definition name="sans10" size="48" style="bold" color="0xffffff" border="none" width="480" align="left"/>
+  <definition name="button_simple" width="240" height="18">
+    <text color="0xdddddd" align="left" size="32">
+      <color name="over" value="0xffffff"></color>
+      <color name="down" value="0xff8989"></color>
+    </text>
+    <graphic id="all" image="ui/buttons/button_simple" slice9="6,6,12,12" tile="true"/>
+  </definition>
+  <!--
+  <numeric_stepper id="music_volume" x="5" y="5" step="0.1" value="1.0" min="0.0" max="1.0" decimals="1">
+      <anchor y="check_loop.bottom" y-flush="top"/>
+  </numeric_stepper>
+  <text center_x="false" name="text1" use_def="sans10" x="34" y="3" size="8" text="volume"/>
+  -->
 
-  <button use_def="button_simple" x="10" y="116" size="16" group="top" label="Join">
+  <input_text label="Room" size="32" x="10" y="264" width="400" background="0xFFFFFF" color="0x000000">
+  </input_text>
+
+  <button use_def="button_simple" x="10" y="316" group="top" label="Host">
+    <param type="string" value="host"/>
+  </button>
+  <button use_def="button_simple" x="10" y="348" group="top" label="Join">
     <param type="string" value="join"/>
   </button>
 
-  <text name="text1" use_def="sans10" x="10" y="48" text="Leader Ships"/>
+  <text name="text1" use_def="sans10" x="10" y="148" size="36" text="Leader"/>
+  <text name="text2" use_def="sans10" x="10" y="184" text="SHIPS" width="320"/>
 </data>

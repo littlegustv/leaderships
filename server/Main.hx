@@ -15,6 +15,14 @@ class Main {
   {
     server = new mphx.server.impl.Server("127.0.0.1",8000);
 
+    server.onConnectionAccepted = function (reason:String, sender:mphx.connection.IConnection) {
+      trace("Connection Accepted: ", reason);
+    };
+
+    server.onConnectionClose =function (reason:String, sender:mphx.connection.IConnection) {
+      trace("Connection Closed: ", reason);
+    };
+
     server.events.on("Join", function(data:Dynamic,sender:mphx.connection.IConnection)
     {
       trace("Player: "+data.id+" has joined!");
@@ -28,15 +36,21 @@ class Main {
       };
       server.broadcast("Join",data);
     });
-    server.events.on("Update",function(data:Dynamic,sender:mphx.connection.IConnection)
+    server.events.on("UpdateCrew",function(data:Dynamic,sender:mphx.connection.IConnection)
     {
-      //trace('Update data received on server', data);
-      sender.data = data;
-      server.broadcast("Update",data);
+      server.broadcast("UpdateCrew",data);
     });
-    server.events.on("Shoot",function(data:Dynamic,sender:mphx.connection.IConnection)
+    server.events.on("UpdateShip",function(data:Dynamic,sender:mphx.connection.IConnection)
     {
-      server.broadcast("NB",data);
+      server.broadcast("UpdateShip",data);
+    });
+    server.events.on("SpawnBullet",function(data:Dynamic,sender:mphx.connection.IConnection)
+    {
+      server.broadcast("SpawnBullet",data);
+    });
+    server.events.on("SpawnEnemy",function(data:Dynamic,sender:mphx.connection.IConnection)
+    {
+      server.broadcast("SpawnEnemy",data);
     });
     server.start();
   }

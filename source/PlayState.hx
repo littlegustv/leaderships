@@ -1,3 +1,5 @@
+// https://github.com/5Mixer/mphx/wiki/Getting-started-with-the-Server
+
 package;
 
 import hxbit.Serializable;
@@ -24,8 +26,13 @@ import Objects;
 
 class PlayState extends FlxState
 {
-  var player:FlxSprite;
+  var is_host:Bool;
+
+  var connection_tries:Int = 0;
+
+  var player:Synced;
   var health = 10;
+  var hp_text:FlxText;
   var target:FlxSprite;
 
   var exterior:FlxGroup;
@@ -42,12 +49,16 @@ class PlayState extends FlxState
 
   var client:mphx.client.Client;
 
+  var ui:FlxGroup;
+
   var PLAYERSPEED = 100;
 
   var CONTROLS:String = "Interior";
   var GRAVITY:Float = 300;
   var JUMPSPEED:Float = 150;
   var MOVESPEED:Float = 80;
+
+  var client_id:String;
 
   function change(to:String):Void {
     crewmember.controls = to;
@@ -58,6 +69,11 @@ class PlayState extends FlxState
       interior.visible = false;
       exterior.visible = true;
     }
+  }
+
+  public function new(is_host:Bool) {
+    this.is_host = is_host;
+    super();
   }
 
 	override public function create():Void
@@ -127,7 +143,14 @@ class PlayState extends FlxState
     crewmap = new Map<String, Crew>();
     interior.add(crew);
 
-    crewmember = new Crew({x: FlxG.random.int(10, 20) * 16, y: 7 * 16, id:"P"+Math.floor(Math.random()*9999), velocity: {x: 0, y: 0}});
+    ui = new FlxGroup();
+    add(ui);
+
+    hp_text = new FlxText(FlxG.width / 2, 32, 100, "10 HP", 24);
+    ui.add(hp_text);
+
+    client_id = "Client"+Math.floor(Math.random()*9999); 
+    crewmember = new Crew({x: FlxG.random.int(10, 20) * 16, y: 7 * 16, id:"P"+Math.floor(Math.random()*9999), client_id: client_id, velocity: {x: 0, y: 0}});
     crewmember.loadGraphic(AssetPaths.cosmonaut__png, true, 16, 16);
     crewmember.animation.add("red", [0, 1], 4, true);
     crewmember.animation.add("green", [2, 3], 4, true);
@@ -136,9 +159,20 @@ class PlayState extends FlxState
     crew.add(crewmember);
 
     client = new mphx.client.Client("127.0.0.1", 8000);
+    client.onConnectionError = function (error:Dynamic) {
+      trace("On Connection Error:", error, connection_tries);
+      connection_tries += 1;
+      if (connection_tries <= 10) {
+        client.connect();
+      }
+    };
+    client.onConnectionClose = function (error:Dynamic) {
+      trace("Connection Closed:", error);
+    };
+    client.onConnectionEstablished = function () {
+      client.send("Join", crewmember.data);
+    };
     client.connect();
-
-    client.send("Join", crewmember.data);
 
     client.events.on("Join", function (data) {
       if (crewmap.exists(data.id) == false) {
@@ -152,7 +186,7 @@ class PlayState extends FlxState
       }
     });
 
-    client.events.on("Update", function (data) {
+    client.events.on("UpdateCrew", function (data) {
       if (data.id != crewmember.data.id) {
         if (crewmap.exists(data.id) != false) {
           crewmap.get(data.id).receiveUpdate(data);
@@ -168,8 +202,28 @@ class PlayState extends FlxState
       }
     });
 
+    client.events.on("UpdateShip", function (data) {
+      if (data.id != crewmember.data.id) {
+        player.receiveUpdate(data);
+      }
+    });
+
+    client.events.on("SpawnBullet", function (data) {
+      if (data.id != crewmember.data.id) {
+        spawnBullet(data);
+      }
+    });
+
+    client.events.on("SpawnEnemy", function (data) {
+      if (is_host == true) {
+        // nothing
+      } else {
+        spawnEnemy(data);
+      }
+    });
+
     // this is actually the ship, ignore for now...
-    player = new FlxSprite(100, 100);
+    player = new Synced({x: 100, y: 100, id: crewmember.data.id, client_id: client_id, velocity: {x: 0, y: 0}});
     player.loadGraphic(AssetPaths.saucer__png, true, 18, 16);
     player.animation.add("main", [0], 1, true);
     player.animation.play("main");
@@ -198,15 +252,19 @@ class PlayState extends FlxState
     } else if (crewmember.controls == "Gunner") {
       target.setPosition(FlxG.mouse.x, FlxG.mouse.y);
       if (FlxG.mouse.justPressed) {
-        FlxG.sound.play(AssetPaths.shoot__wav, 0.5);
-        var bullet = new FlxSprite(player.x + 4, player.y + 4);
-        bullet.loadGraphic(AssetPaths.projectile__png, true, 8, 8);
-        bullet.animation.add("main", [0, 1], 1, true);
         var theta = FlxAngle.angleBetween(player, target);
-        bullet.velocity.x = 250 * Math.cos(theta);
-        bullet.velocity.y = 250 * Math.sin(theta);
-        bullet.animation.play("main");
-        player_bullets.add(bullet);
+        var data = {
+          x: Math.floor(player.x + 4),
+          y: Math.floor(player.y + 4),
+          id: crewmember.data.id,
+          velocity: {
+            x: Math.floor(250 * Math.cos(theta)),
+            y: Math.floor(250 * Math.sin(theta)) 
+          }
+        };
+        FlxG.sound.play(AssetPaths.shoot__wav, 0.5);
+        spawnBullet(data);
+        client.send("SpawnBullet", data);
       }
     }
 /*
@@ -239,9 +297,10 @@ class PlayState extends FlxState
 
     FlxG.overlap(player, enemies, function (p, e) {
       enemies.remove(e);
-      FlxG.sound.play(AssetPaths.hurt__wav);
+      FlxG.sound.play(AssetPaths.hurt__wav, 0.4);
       FlxG.camera.shake(0.025);
       health -= 1;
+      hp_text.text = "" + health + " hp";
       if (health <= 0) {
         FlxG.switchState(new MenuState());
       }
@@ -255,15 +314,19 @@ class PlayState extends FlxState
       }
     }
 
-    if (FlxG.random.bool(10) == true) {
+    if (is_host == true && FlxG.random.bool(10) == true) {
       var theta = FlxG.random.float() * 2 * 3.14159265;
-      var enemy = new FlxSprite(FlxG.width / 2 + Math.cos(theta) * FlxG.width, FlxG.height / 2 + Math.sin(theta) * FlxG.width);
-      enemy.loadGraphic(AssetPaths.ghost__png, true, 16, 16);
-      enemy.animation.add("main", [0, 1], 4, true);
-      enemy.velocity.x = -Math.cos(theta) * 100;
-      enemy.velocity.y = -Math.sin(theta) * 100;
-      enemy.animation.play("main");
-      enemies.add(enemy);
+      var enemyData = {
+        x: Math.floor(FlxG.width / 2 + Math.cos(theta) * FlxG.width),
+        y: Math.floor(FlxG.height / 2 + Math.sin(theta) * FlxG.width),
+        id: crewmember.data.id,
+        velocity: {
+          x: Math.floor(-1 * Math.cos(theta) * 100),
+          y: Math.floor(-1 * Math.sin(theta) * 100)
+        }
+      };
+      spawnEnemy(enemyData);
+      client.send("SpawnEnemy", enemyData);
     }
 
     if (crewmember.controls == "Interior") {
@@ -312,8 +375,27 @@ class PlayState extends FlxState
         crewmember.velocity.x = -MOVESPEED;
       }
     }
-    client.send("Update",crewmember.data);
     super.update(elapsed);
+    if (crewmember.controls == "Pilot") {
+      client.send("UpdateShip", player.data);      
+    }
+    client.send("UpdateCrew",crewmember.data);      
     client.update();
 	}
+
+  function spawnBullet(data:SyncData) {
+    var bullet = new Synced(data);
+    bullet.loadGraphic(AssetPaths.projectile__png, true, 8, 8);
+    bullet.animation.add("main", [0, 1], 1, true);
+    bullet.animation.play("main");
+    player_bullets.add(bullet);
+  }
+
+  function spawnEnemy(data:SyncData) {
+    var enemy = new Synced(data);
+    enemy.loadGraphic(AssetPaths.ghost__png, true, 16, 16);
+    enemy.animation.add("main", [0, 1], 4, true);
+    enemy.animation.play("main");
+    enemies.add(enemy);
+  }
 }

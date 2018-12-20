@@ -27,7 +27,8 @@ class MenuState extends FlxUIState
           //FlxG.sound.play(AssetPaths.select__wav);
           switch (Std.string(params[0]))
           {
-            case "join": FlxG.switchState(new PlayState());
+            case "join": FlxG.switchState(new PlayState(false));
+            case "host": FlxG.switchState(new PlayState(true));
           }
         }
     }
